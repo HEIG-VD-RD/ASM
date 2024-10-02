@@ -1,0 +1,11 @@
+Pour la version ARM, j'ai remarqué que l'adresse utilisant la branche conditionnelle pour le saut se trouve ici : 
+`8200018c: ebffff9f bl 82000010 <check_password>`. 
+Afin de modifier cette instruction, j'ai utilisé la commande mw de la manière suivante : mw.l 0x8200018c 0xe320f000. 
+La description du laboratoire mentionne l'utilisation de 0x00000000 comme instruction NOP, mais ça n'a pas foncionné pour moi mais 
+en utilisant objdump sur le fichier ELF de crackme, j'ai trouvé une ligne qui utilise l'instruction NOP qui vaut 0xe320f000, que j'ai donc utilisée. 
+Après exécution du programme, le message "Correct password !" s'est affiché correctement.
+
+Pour la version x86, j'ai procédé de la même manière. Voici la ligne de l'instruction que j'ai remplacée : 
+`4011d: 74 21 je 40140 <main+0xea>`. Comme instruction NOP, j'ai utilisé : `mw.w 0x4011d 0x9000`. 
+Le programme exécuté a bien produit le message "Good job ! Enjoy !", mais il n'a pas affiché le message "Correct password !", 
+et je ne suis pas certain de savoir pourquoi.

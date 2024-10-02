@@ -1,0 +1,39 @@
+
+gpio_c.o:     file format elf32-i386
+
+
+Disassembly of section .text.config_register:
+
+00000000 <config_register>:
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 04             	sub    $0x4,%esp
+   6:	c7 45 fc 00 00 00 ff 	movl   $0xff000000,-0x4(%ebp)
+   d:	8b 45 08             	mov    0x8(%ebp),%eax
+  10:	83 e0 fe             	and    $0xfffffffe,%eax
+  13:	89 45 08             	mov    %eax,0x8(%ebp)
+  16:	8b 45 08             	mov    0x8(%ebp),%eax
+  19:	0c f0                	or     $0xf0,%al
+  1b:	89 45 08             	mov    %eax,0x8(%ebp)
+  1e:	8b 45 fc             	mov    -0x4(%ebp),%eax
+  21:	f7 d0                	not    %eax
+  23:	89 c2                	mov    %eax,%edx
+  25:	8b 45 08             	mov    0x8(%ebp),%eax
+  28:	21 d0                	and    %edx,%eax
+  2a:	89 45 08             	mov    %eax,0x8(%ebp)
+  2d:	8b 45 08             	mov    0x8(%ebp),%eax
+  30:	0d 00 00 00 66       	or     $0x66000000,%eax
+  35:	89 45 08             	mov    %eax,0x8(%ebp)
+  38:	8b 45 08             	mov    0x8(%ebp),%eax
+  3b:	85 c0                	test   %eax,%eax
+  3d:	79 03                	jns    42 <config_register+0x42>
+  3f:	83 c0 07             	add    $0x7,%eax
+  42:	c1 f8 03             	sar    $0x3,%eax
+  45:	89 45 08             	mov    %eax,0x8(%ebp)
+  48:	8b 45 08             	mov    0x8(%ebp),%eax
+  4b:	25 48 76 ff 07       	and    $0x7ff7648,%eax
+  50:	0c a0                	or     $0xa0,%al
+  52:	89 45 08             	mov    %eax,0x8(%ebp)
+  55:	8b 45 08             	mov    0x8(%ebp),%eax
+  58:	c9                   	leave  
+  59:	c3                   	ret    

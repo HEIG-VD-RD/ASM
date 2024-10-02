@@ -1,0 +1,16 @@
+Pour obtenir le résultat "Correct password", voila ce que j'ai fait:
+
+Version ARM : J'ai modifié les valeurs des registres r2 ou r3 pendant le debug. 
+En observant le désassemblage, surtout dans la boucle de check_password, j'ai noté que les instructions aux adresses suivante:
+```
+82000068:   movw    r3, #48879      ; 0xbeef
+8200006c:   movt    r3, #57005      ; 0xdead
+```
+préparaient le hash attendu dans le registre r3 (0xdeadbeef). 
+La comparaison se fait via `cmp` entre r2 (hash entré) et r3 (hash attendu), suivie par `moveq` et `movne` qui déterminent la valeur dans r3 basée sur cette comparaison. 
+Pour passer la vérification, j'ai placé des points d'arrêt pour soitchanger la valeur de r2 à 0xDEADBEEF, soit ajuster la valeur r3 de 0x0 à 0x1 après la comparaison afin d'avoir la bonne valeur de retour
+Et j'ai pu faite ça en utilisant l'interface de registres dans Eclipse.
+
+Version x86 : C'est assez similaire que pour arm, en ajustant soit le registre %al (qui représente le résultat de la comparaison), soit %ebp lors de la comparaison avec 0xdeadbeef. 
+
+
